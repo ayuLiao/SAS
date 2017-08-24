@@ -1,0 +1,71 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SAS</title>
+  <link href="https://fonts.googleapis.com/css?family=Monoton" rel="stylesheet">
+  <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+
+   <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+</head>
+<body>
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <h1>SAS</h1>
+      </div>
+    </div>
+  </nav>
+
+  <div class='search_T'>
+    <div class="sarch-wraper">
+      <div class="col-md-12 title">
+        <h1>SEARCH &nbsp &nbsp ARTICLE</h1>
+        <p>搜索出最相关的文章<br></p>
+        <div class="search-wraper" role="search">
+          <div class="form-group">
+              <form method="post" action="{% url 'index' %}">
+                <input name="keyword" class="form-control search" placeholder="输入搜索关键字" autocomplete="off" autofocus="" tabindex="0" autocorrect="off" autocapitalize="off" spellcheck="false">
+                <i class="fa fa-search"></i>
+                {% csrf_token %}
+              </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="content">
+  <div class="content_tag">
+    {% for info in themelist %}
+    <span class="label label-info big">{{ info }}</span>&nbsp &nbsp
+      {% endfor %}
+
+  </div>
+
+      {% for key,value in contentdict.items %}
+     <div class="panel panel-default">
+      <div class="panel-body">
+        <div class="article_con">
+          <h2>{{ key }}</h2>
+            {% for con in value %}
+                  <span>
+                      {{ con }}
+                  </span><br>
+                {% endfor %}
+        </div>
+      </div>
+    </div>
+      {% endfor %}
+
+
+  </div>
+
+  <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+  <script src="{% static 'js/bootstrap.min.js' %}"></script>
+</body>
+</html>
